@@ -72,6 +72,69 @@ impl<T: Ord> BinaryVec<T> {
             Err(_) => None,
         }
     }
+
+    /// Checks if the `BinaryVec` contains the specified value.
+    pub fn contains(&self, value: &T) -> bool {
+        self.vec.binary_search(value).is_ok()
+    }
+
+    /// Returns the number of elements that can be stored in the `BinaryVec` without reallocating.
+    pub fn capacity(&self) -> usize {
+        self.vec.capacity()
+    }
+
+    /// Returns the number of elements in the `BinaryVec`.
+    pub fn len(&self) -> usize {
+        self.vec.len()
+    }
+
+    /// Checks if the `BinaryVec` is empty.
+    pub fn is_empty(&self) -> bool {
+        self.vec.is_empty()
+    }
+
+    /// Clears the `BinaryVec`, removing all elements.
+    pub fn clear(&mut self) {
+        self.vec.clear();
+    }
+
+    /// Reserves capacity for at least `additional` more elements to be inserted in the `BinaryVec`.
+    pub fn reserve(&mut self, additional: usize) {
+        self.vec.reserve(additional);
+    }
+
+    /// Shrinks the capacity of the `BinaryVec` to fit its current length.
+    pub fn shrink_to_fit(&mut self) {
+        self.vec.shrink_to_fit();
+    }
+
+    /// Resizes the `BinaryVec` to contain `new_len` elements, filling new elements with `value`.
+    pub fn resize(&mut self, new_len: usize, value: T)
+    where
+        T: Clone,
+    {
+        self.vec.resize(new_len, value);
+    }
+
+    /// Returns a reference to the underlying vector.
+    pub fn as_slice(&self) -> &[T] {
+        &self.vec
+    }
+
+    /// Returns a mutable reference to the underlying vector.
+    pub fn as_mut_slice(&mut self) -> &mut [T] {
+        &mut self.vec
+    }
+
+    /// Returns the first element of the `BinaryVec`, or `None` if it is empty.
+    pub fn first(&self) -> Option<&T> {
+        self.vec.first()
+    }
+
+    /// Returns the last element of the `BinaryVec`, or `None` if it is empty.
+    pub fn last(&self) -> Option<&T> {
+        self.vec.last()
+    }
 }
 
 impl<T: Ord> Default for BinaryVec<T> {
