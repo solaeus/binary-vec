@@ -1,3 +1,4 @@
+#[derive(Debug, Clone, Eq, PartialEq, PartialOrd, Ord)]
 pub struct BinaryVec<T> {
     vec: Vec<T>,
 }
@@ -18,6 +19,16 @@ impl<T: Ord> BinaryVec<T> {
     /// Returns the vector internally used by `BinaryVec`.
     pub fn into_vec(self) -> Vec<T> {
         self.vec
+    }
+
+    /// Returns an iterator over references to the items in the `BinaryVec`.
+    pub fn iter(&self) -> std::slice::Iter<T> {
+        self.vec.iter()
+    }
+
+    /// Returns an iterator over mutable references to the items in the `BinaryVec`.
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<T> {
+        self.vec.iter_mut()
     }
 
     /// Inserts a value into the `BinaryVec`, maintaining sorted order, and returns the index where
@@ -66,6 +77,15 @@ impl<T: Ord> BinaryVec<T> {
 impl<T: Ord> Default for BinaryVec<T> {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+impl<T> IntoIterator for BinaryVec<T> {
+    type Item = T;
+    type IntoIter = std::vec::IntoIter<T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.vec.into_iter()
     }
 }
 
